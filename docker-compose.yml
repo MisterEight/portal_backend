@@ -1,0 +1,17 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: pcp-db
+    env_file:
+      - .env
+    environment:
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "${DB_PORT:-3307}:3307"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./portal.sql:/docker-entrypoint-initdb.d/portal.sql:ro
+
+volumes:
+  db_data:
