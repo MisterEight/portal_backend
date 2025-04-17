@@ -1,8 +1,20 @@
+require('dotenv').config();
+
 const { Sequelize } = require('sequelize');
 
-const sequelize = new Sequelize('pcp', 'root', 'senha', { //senha com base no banco de dados do seu computador
-  host: 'localhost',
-  dialect: 'mysql', // ou 'postgres'
+const {
+  DB_NAME,
+  DB_USER,
+  DB_PORT,
+  DB_PASSWORD,
+  DB_HOST,
+  DB_DIALECT
+} = process.env;
+
+const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
+  host: DB_HOST,
+  port: DB_PORT,
+  dialect: DB_DIALECT
 });
 
 module.exports = sequelize;
