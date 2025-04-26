@@ -4,6 +4,7 @@ const Sequelize = require('sequelize');
 const sequelize = require('./src/config/database')
 const unidadeRoutes = require('./src/routes/unidadeRoutes');
 const licitacaoRoutes = require('./src/routes/licitacaoRoutes');
+const compradoresRoutes = require('./src/routes/compradoresRoutes');
 //const usuarioRoutes = require("./src/routes/usuariosRoutes");
 
 dotenv.config();
@@ -11,6 +12,7 @@ const app = express();
 app.use(express.json());
 app.use('/api', unidadeRoutes);
 app.use('/api/licitacao', licitacaoRoutes);
+app.use('/api/compradores', compradoresRoutes);
 //app.use("/usuarios", usuarioRoutes);
 
 sequelize.authenticate().then(function(){
