@@ -3,7 +3,7 @@ const router = express.Router();
 const compradorController = require('../controllers/compradoresController');
 
 // GET /compradores
-router.get('/', compradorController.getAll);
+router.get('/', compradorController.getAll)
 
 // POST /compradores
 router.post('/', compradorController.create);
@@ -14,7 +14,5 @@ router.put('/:id', compradorController.update);
 // DELETE /compradores/:id
 router.delete('/:id', compradorController.delete);
 
-
-//Validar cnpj
 //Garantir integração com licitacoes.
 module.exports = router;
