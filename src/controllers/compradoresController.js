@@ -17,7 +17,6 @@ exports.create = async (req, res) => {
       const {
         comprador_id,
         nome,
-        //cnpj,
         erp_utilizado,
         possui_power_bi,
         ativo,
@@ -28,7 +27,6 @@ exports.create = async (req, res) => {
       const novoComprador = await Comprador.create({
         comprador_id,
         nome,
-        //cnpj,
         erp_utilizado,
         possui_power_bi,
         ativo,
@@ -50,7 +48,6 @@ exports.update = async (req, res) => {
       const {
         comprador_id,
         nome,
-        //cnpj,
         erp_utilizado,
         possui_power_bi,
         ativo,
@@ -68,7 +65,6 @@ exports.update = async (req, res) => {
       await comprador.update({
         comprador_id,
         nome,
-        //cnpj,
         erp_utilizado,
         possui_power_bi,
         ativo,
