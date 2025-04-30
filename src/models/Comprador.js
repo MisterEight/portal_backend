@@ -11,10 +11,6 @@ const Comprador = sequelize.define('Comprador', {
         type: DataTypes.STRING,
         allowNull: false
       },
-      /*cnpj: {
-        type: DataTypes.STRING,
-        allowNull: true
-      },*/
       erp_utilizado: {
         type: DataTypes.STRING,
         allowNull: true
