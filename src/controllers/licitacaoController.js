@@ -11,6 +11,24 @@ exports.getAll = async (req, res) => {
   }
 };
 
+exports.getById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const licitacao = await Licitacao.findByPk(id);
+
+    if (!licitacao) {
+      return res.status(404).json({ error: 'Licitação não encontrada' });
+    }
+
+    res.status(200).json(licitacao);
+  } catch (error) {
+    console.error('Erro ao buscar licitação:', error);
+    res.status(500).json({ error: 'Erro ao buscar licitação' });
+  }
+};
+
+
 // Criar uma nova licitação
 exports.create = async (req, res) => {
   try {
