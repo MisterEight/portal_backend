@@ -14,9 +14,14 @@ Unidade.init({
     allowNull: false
   },
   nome: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
+  type: DataTypes.STRING,
+  allowNull: false,
+  validate: {
+    notEmpty: {
+      msg: 'O nome não pode estar vazio'
+    }
+  }
+},
   sigla: DataTypes.STRING,
   telefone: DataTypes.STRING,
   endereco: DataTypes.STRING,
