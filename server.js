@@ -7,7 +7,7 @@ const licitacaoRoutes = require('./src/routes/licitacaoRoutes');
 const compradoresRoutes = require('./src/routes/compradoresRoutes');
 const loginRoutes = require('./src/routes/loginRoutes');
 const feriadosRoutes = require('./src/routes/feriadosRoutes');
-//const usuarioRoutes = require("./src/routes/usuariosRoutes");
+const usuariosRoutes = require("./src/routes/usuariosRoutes");
 
 dotenv.config();
 const app = express();
@@ -17,7 +17,7 @@ app.use('/api/licitacao', licitacaoRoutes);
 app.use('/api/compradores', compradoresRoutes);
 app.use('/api/loginRoutes', loginRoutes);
 app.use('/api/feriadosRoutes', feriadosRoutes);
-//app.use("/usuarios", usuarioRoutes);
+app.use("/api/usuarios", usuariosRoutes);
 
 
 sequelize.authenticate().then(function(){
