@@ -1,5 +1,22 @@
 const Comprador = require('../models/Comprador');
 
+exports.getById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const comprador = await Comprador.findByPk(id);
+
+    if (!comprador) {
+      return res.status(404).json({ error: 'Comprador não encontrado' });
+    }
+
+    res.status(200).json(comprador);
+  } catch (error) {
+    console.error('Erro ao buscar comprador:', error);
+    res.status(500).json({ error: 'Erro ao buscar comprador' });
+  }
+};
+
 // Listar todos os compradores
 exports.getAll = async (req, res) => {
   try {
@@ -81,20 +98,25 @@ exports.update = async (req, res) => {
 
   // Deletar um comprador
 exports.delete = async (req, res) => {
-    try {
-      const { id } = req.params; // Pega o ID da URL
-  
-      const comprador = await Comprador.findByPk(id);
-  
-      if (!comprador) {
-        return res.status(404).json({ error: 'Comprador não encontrada' });
-      }
-  
-      await comprador.destroy(); // Deleta a licitação do banco
-  
-      res.status(200).json({ message: 'Comprador deletado com sucesso' });
-    } catch (error) {
-      console.error('Erro ao deletar comprador:', error);
-      res.status(500).json({ error: 'Erro ao deletar comprador' });
+  try {
+    const { id } = req.params;
+
+    const comprador = await Comprador.findByPk(id);
+
+    if (!comprador) {
+      return res.status(404).json({ error: 'Comprador não encontrado' });
     }
-  };  
+
+    if (!comprador.ativo) {
+      return res.status(400).json({ error: 'Comprador já está inativo' });
+    }
+
+    comprador.ativo = false;
+    await comprador.save();
+
+    res.status(200).json({ message: 'Comprador desativado com sucesso' });
+  } catch (error) {
+    console.error('Erro ao desativar comprador:', error);
+    res.status(500).json({ error: 'Erro ao desativar comprador' });
+  }
+};
