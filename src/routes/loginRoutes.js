@@ -1,31 +1,27 @@
 const express = require('express');
+const jwt = require('jsonwebtoken');
 const router = express.Router();
 
-//const SECRET_KEY = 'segredo';
+const SECRET_KEY = process.env.SECRET_KEY || 'segredo';
 
+// Usuários mockados para teste
 const users = [
-  //  { username: 'admin', password: '123456' },
-  //  { username: 'user', password: 'senha123' }
+  { username: 'admin', password: '123456' },
+  { username: 'user', password: 'senha123' }
 ];
 
+// POST /api/login
 router.post('/', (req, res) => {
-  const { username, password, email, cpf } = req.body;
+  const { username, password } = req.body;
 
-  if (!username || !password || !email || !cpf) {
-    return res.status(400).json({ message: 'Username, password, email e cpf são obrigatórios.' });
+  const user = users.find(u => u.username === username && u.password === password);
+  if (!user) {
+    return res.status(401).json({ message: 'Usuário ou senha inválidos' });
   }
 
-  const userExists = users.find(u => u.username === username || u.email === email || u.cpf === cpf);
-  if (userExists) {
-    return res.status(409).json({ message: 'Usuário com o mesmo username, email ou cpf já existe.' });
-  }
+  const token = jwt.sign({ username: user.username }, SECRET_KEY, { expiresIn: '1h' });
 
-  users.push({ username, password, email, cpf });
-  return res.status(201).json({ message: 'Usuário criado com sucesso!' });
+  res.status(200).json({ message: 'Login realizado com sucesso!', token });
 });
 
-router.get('/', (req, res) => {
-  const safeUsers = users.map(({ username }) => ({ username}));
-  res.status(200).json(safeUsers);
-});
-module.exports = router;
+module.exports = router;
