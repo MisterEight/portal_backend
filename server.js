@@ -12,7 +12,7 @@ const feriadosRoutes = require('./src/routes/feriadosRoutes');
 dotenv.config();
 const app = express();
 app.use(express.json());
-app.use('/api', unidadeRoutes);
+app.use('/api/unidade', unidadeRoutes);
 app.use('/api/licitacao', licitacaoRoutes);
 app.use('/api/compradores', compradoresRoutes);
 app.use('/api/loginRoutes', loginRoutes);
