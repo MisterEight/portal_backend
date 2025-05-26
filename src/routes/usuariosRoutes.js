@@ -3,6 +3,8 @@ const router = express.Router();
 const usuarioController = require('../controllers/usuariosController');
 const authenticateToken = require('../middleware/authMiddleware');
 
+router.get('/:id', usuarioController.getById);
+
 // GET /Usuarios
 router.get('/', authenticateToken, usuarioController.getAll);
 

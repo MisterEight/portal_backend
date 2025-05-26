@@ -1,5 +1,22 @@
 const Usuario = require('../models/Usuarios');
 
+exports.getById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const usuario = await Usuario.findByPk(id);
+
+    if (!usuario) {
+      return res.status(404).json({ error: 'usuario não encontrado' });
+    }
+
+    res.status(200).json(usuario);
+  } catch (error) {
+    console.error('Erro ao buscar usuario:', error);
+    res.status(500).json({ error: 'Erro ao buscar usuario' });
+  }
+};
+
 // Listar todos os usuarios
 exports.getAll = async (req, res) => {
   try {
