@@ -18,7 +18,7 @@ app.use(express.json());
 app.use('/api/unidade', unidadeRoutes);
 app.use('/api/licitacao', licitacaoRoutes);
 app.use('/api/compradores', compradoresRoutes);
-<<<<<<< HEAD
+
 app.use('/api/login', loginRoutes); 
 app.use('/api/feriadosRoutes', feriadosRoutes);
 app.use('/api/usuarios', usuarioRoutes);
