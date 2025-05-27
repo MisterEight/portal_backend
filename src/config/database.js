@@ -14,7 +14,10 @@ const {
 const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
   host: DB_HOST,
   port: DB_PORT,
-  dialect: DB_DIALECT
+  user: DB_USER,
+  password: DB_PASSWORD,
+  dialect: DB_DIALECT,
+ 
 });
 
 module.exports = sequelize;
