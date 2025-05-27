@@ -5,6 +5,9 @@ const licitacaoController = require('../controllers/licitacaoController');
 // GET /licitacao
 router.get('/', licitacaoController.getAll);
 
+//GET / LISTA POR ID
+router.get('/:id', licitacaoController.getById);
+
 // POST /licitacao
 router.post('/', licitacaoController.create);
 

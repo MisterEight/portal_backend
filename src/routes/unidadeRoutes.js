@@ -1,7 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const { createUnidade } = require('../controllers/unidadeController');
+const unidadeController  = require('../controllers/unidadeController');
 
-router.post('/unidades', createUnidade);
+router.get('/:id', unidadeController.getById);
+
+router.get('/', unidadeController.getAll);
+
+router.post('/', unidadeController.create);
+
+router.put('/:id', unidadeController.update);
+
+router.delete('/:id', unidadeController.delete);
 
 module.exports = router;

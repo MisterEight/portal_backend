@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 const compradorController = require('../controllers/compradoresController');
 
+//GET / LISTA POR ID
+router.get('/:id', compradorController.getById);
+
 // GET /compradores
 router.get('/', compradorController.getAll)
 

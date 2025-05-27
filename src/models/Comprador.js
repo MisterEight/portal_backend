@@ -9,7 +9,12 @@ const Comprador = sequelize.define('Comprador', {
       },
       nome: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            msg: 'O nome não pode estar vazio'
+          }
+        }
       },
       erp_utilizado: {
         type: DataTypes.STRING,
