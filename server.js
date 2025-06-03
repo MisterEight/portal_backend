@@ -7,7 +7,8 @@ const licitacaoRoutes = require('./src/routes/licitacaoRoutes');
 const compradoresRoutes = require('./src/routes/compradoresRoutes');
 const loginRoutes = require('./src/routes/loginRoutes');
 const feriadosRoutes = require('./src/routes/feriadosRoutes');
-//const usuarioRoutes = require("./src/routes/usuariosRoutes");
+//const usuarioRoutes = require('./src/routes/usuariosRoutes');
+const recuperacaoRoutes = require('./src/routes/recuperacaoRoutes');
 
 dotenv.config();
 const app = express();
@@ -15,9 +16,11 @@ app.use(express.json());
 app.use('/api/unidade', unidadeRoutes);
 app.use('/api/licitacao', licitacaoRoutes);
 app.use('/api/compradores', compradoresRoutes);
-app.use('/api/loginRoutes', loginRoutes);
+app.use('/api/login', loginRoutes); 
 app.use('/api/feriadosRoutes', feriadosRoutes);
-//app.use("/usuarios", usuarioRoutes);
+//app.use('/api/usuarios', usuarioRoutes);
+app.use('/api', recuperacaoRoutes);
+
 
 sequelize.authenticate().then(function(){
     console.log("Sucesso ao conectar ao banco de dados!!")    
@@ -27,4 +30,3 @@ sequelize.authenticate().then(function(){
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
-
