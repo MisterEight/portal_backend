@@ -153,3 +153,30 @@ CREATE TABLE documentos (
     FOREIGN KEY (grupo_id) REFERENCES grupos_documentos(grupo_id),
     FOREIGN KEY (categoria_id) REFERENCES categorias_documentos(categoria_id)
 );
+-- -----------------------------------------------------
+-- SEED DATA PARA RBAC
+-- -----------------------------------------------------
+-- Permissão administrativa inicial
+INSERT INTO permissoes (nome, descricao) VALUES ('ADMIN', 'Acesso total ao sistema');
+
+-- Cargos básicos
+INSERT INTO roles (nome, descricao) VALUES
+  ('ADMIN', 'Usuário administrador do portal'),
+  ('COMPRADOR', 'Comprador'),
+  ('UNIDADE', 'Unidade'),
+  ('PREGOEIRO', 'Usuário pregoeiro');
+
+-- Associa o cargo ADMIN à permissão ADMIN
+INSERT INTO roles_permissoes (role_id, permissao_id)
+  SELECT r.role_id, p.permissao_id FROM roles r, permissoes p
+  WHERE r.nome='ADMIN' AND p.nome='ADMIN';
+
+-- Primeiro usuário administrador
+INSERT INTO usuarios (nome, login, email, cpf, senha_hash)
+VALUES ('Administrador', 'admin', 'admin@example.com', '00000000000',
+'$2a$10$7EqJtq98hPqEX7fNZaFWoOaWgWo9r2ZSG6rPJty2rc3hSx0bCXeFa');
+
+-- Vincula o usuário administrador ao cargo ADMIN
+INSERT INTO usuarios_roles (usuario_id, role_id)
+  SELECT u.usuario_id, r.role_id FROM usuarios u, roles r
+  WHERE u.login='admin' AND r.nome='ADMIN';

@@ -13,6 +13,7 @@ const registerRoutes = require('./src/routes/registerRoutes');
 const feriadosRoutes = require('./src/routes/feriadosRoutes');
 const usuarioRoutes = require('./src/routes/usuariosRoutes');
 const recuperacaoRoutes = require('./src/routes/recuperacaoRoutes');
+const rolesRoutes = require('./src/routes/rolesRoutes');
 const authenticateToken = require('./src/middleware/authMiddleware');
 
 const app = express();
@@ -23,6 +24,7 @@ app.use('/api/register', registerRoutes);
 app.use(authenticateToken);
 
 app.use('/api/usuarios', usuarioRoutes);
+app.use('/api/roles', rolesRoutes);
 
 app.use('/api/unidade', unidadeRoutes);
 app.use('/api/licitacao', licitacaoRoutes);
