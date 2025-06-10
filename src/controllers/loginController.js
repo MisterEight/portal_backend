@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const Usuario = require('../models/Usuarios');
+const UsuarioRole = require('../models/UsuarioRole');
+const Role = require('../models/Role');
 
 const SECRET_KEY = process.env.SECRET_KEY || 'segredo';
 
@@ -24,8 +26,15 @@ exports.login = async (req, res) => {
       return res.status(401).json({ message: 'Usuário ou senha inválidos' });
     }
 
+    // Busca os cargos associados ao usuário
+    const userRoles = await UsuarioRole.findAll({
+      where: { usuario_id: usuario.usuario_id },
+      include: [{ model: Role, attributes: ['nome'] }]
+    });
+    const roles = userRoles.map(ur => ur.Role.nome);
+
     const token = jwt.sign(
-      { id: usuario.usuario_id, login: usuario.login },
+      { id: usuario.usuario_id, login: usuario.login, roles },
       SECRET_KEY,
       { expiresIn: '1h' }
     );

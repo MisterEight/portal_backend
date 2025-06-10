@@ -51,27 +51,44 @@ CREATE TABLE unidades (
     FOREIGN KEY (comprador_id) REFERENCES compradores(comprador_id)
 );
 
--- -------------------------------
 -- TABELA: permissoes
 -- -------------------------------
 CREATE TABLE permissoes (
     permissao_id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100) NOT NULL,
+    nome VARCHAR(100) NOT NULL UNIQUE,
+    descricao TEXT
+);
+
+
+-- -------------------------------
+-- TABELA: roles
+-- -------------------------------
+CREATE TABLE roles (
+    role_id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL UNIQUE,
     descricao TEXT
 );
 
 -- -------------------------------
--- TABELA: usuarios_unidades_permissoes
+-- TABELA: roles_permissoes
 -- -------------------------------
-CREATE TABLE usuarios_unidades_permissoes (
-    usuario_id INT,
-    unidade_id INT,
+CREATE TABLE roles_permissoes (
+    role_id INT,
     permissao_id INT,
-    data_criacao DATETIME DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (usuario_id, unidade_id, permissao_id),
-    FOREIGN KEY (usuario_id) REFERENCES usuarios(usuario_id),
-    FOREIGN KEY (unidade_id) REFERENCES unidades(unidade_id),
+    PRIMARY KEY (role_id, permissao_id),
+    FOREIGN KEY (role_id) REFERENCES roles(role_id),
     FOREIGN KEY (permissao_id) REFERENCES permissoes(permissao_id)
+);
+
+-- -------------------------------
+-- TABELA: usuarios_roles
+-- -------------------------------
+CREATE TABLE usuarios_roles (
+    usuario_id INT,
+    role_id INT,
+    PRIMARY KEY (usuario_id, role_id),
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(usuario_id),
+    FOREIGN KEY (role_id) REFERENCES roles(role_id)
 );
 
 -- -------------------------------
