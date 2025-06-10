@@ -42,3 +42,4 @@ const Comprador = sequelize.define('Comprador', {
 });
 
 module.exports = Comprador;
+

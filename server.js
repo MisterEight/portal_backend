@@ -9,6 +9,7 @@ const unidadeRoutes = require('./src/routes/unidadeRoutes');
 const licitacaoRoutes = require('./src/routes/licitacaoRoutes');
 const compradoresRoutes = require('./src/routes/compradoresRoutes');
 const loginRoutes = require('./src/routes/loginRoutes');
+const registerRoutes = require('./src/routes/registerRoutes');
 const feriadosRoutes = require('./src/routes/feriadosRoutes');
 const usuarioRoutes = require('./src/routes/usuariosRoutes');
 const recuperacaoRoutes = require('./src/routes/recuperacaoRoutes');
@@ -17,9 +18,11 @@ const authenticateToken = require('./src/middleware/authMiddleware');
 const app = express();
 app.use(express.json());
 app.use('/api/login', loginRoutes);
-app.use('/api/usuarios', usuarioRoutes);
+app.use('/api/register', registerRoutes);
 
 app.use(authenticateToken);
+
+app.use('/api/usuarios', usuarioRoutes);
 
 app.use('/api/unidade', unidadeRoutes);
 app.use('/api/licitacao', licitacaoRoutes);

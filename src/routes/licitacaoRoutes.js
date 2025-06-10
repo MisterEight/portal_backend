@@ -18,3 +18,4 @@ router.put('/:id', licitacaoController.update);
 router.delete('/:id', licitacaoController.delete);
 
 module.exports = router;
+

@@ -8,3 +8,4 @@ router.put('/:id', feriadosController.update);
 router.delete('/:id', feriadosController.delete);
 
 module.exports = router;
+
