@@ -1,31 +1,44 @@
 const express = require('express');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const Usuario = require('../models/Usuarios');
+
 const router = express.Router();
 
-//const SECRET_KEY = 'segredo';
+const SECRET_KEY = process.env.SECRET_KEY || 'segredo';
 
-const users = [
-  //  { username: 'admin', password: '123456' },
-  //  { username: 'user', password: 'senha123' }
-];
+// Rota de login
+router.post('/', async (req, res) => {
+  const { login, senha } = req.body;
 
-router.post('/', (req, res) => {
-  const { username, password, email, cpf } = req.body;
-
-  if (!username || !password || !email || !cpf) {
-    return res.status(400).json({ message: 'Username, password, email e cpf são obrigatórios.' });
+  if (!login || !senha) {
+    return res.status(400).json({ message: 'Login e senha são obrigatórios.' });
   }
 
-  const userExists = users.find(u => u.username === username || u.email === email || u.cpf === cpf);
-  if (userExists) {
-    return res.status(409).json({ message: 'Usuário com o mesmo username, email ou cpf já existe.' });
+  try {
+    const usuario = await Usuario.findOne({ where: { login } });
+
+    if (!usuario) {
+      return res.status(401).json({ message: 'Usuário ou senha inválidos' });
+    }
+
+    const passwordMatch = await bcrypt.compare(senha, usuario.senha_hash);
+
+    if (!passwordMatch) {
+      return res.status(401).json({ message: 'Usuário ou senha inválidos' });
+    }
+
+    const token = jwt.sign(
+      { id: usuario.usuario_id, login: usuario.login },
+      SECRET_KEY,
+      { expiresIn: '1h' }
+    );
+
+    return res.status(200).json({ token });
+  } catch (error) {
+    console.error('Erro ao realizar login:', error);
+    return res.status(500).json({ message: 'Erro ao realizar login' });
   }
-
-  users.push({ username, password, email, cpf });
-  return res.status(201).json({ message: 'Usuário criado com sucesso!' });
 });
 
-router.get('/', (req, res) => {
-  const safeUsers = users.map(({ username }) => ({ username}));
-  res.status(200).json(safeUsers);
-});
-module.exports = router;
+module.exports = router;
