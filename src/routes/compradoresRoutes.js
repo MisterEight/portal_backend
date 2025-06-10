@@ -19,3 +19,4 @@ router.delete('/:id', compradorController.delete);
 
 //Garantir integração com licitacoes.
 module.exports = router;
+

@@ -120,3 +120,4 @@ exports.delete = async (req, res) => {
     res.status(500).json({ error: 'Erro ao deletar licitação' });
   }
 };
+
