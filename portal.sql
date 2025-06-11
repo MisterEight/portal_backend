@@ -92,6 +92,20 @@ CREATE TABLE usuarios_roles (
 );
 
 -- -------------------------------
+-- TABELA: usuarios_unidades_permissoes
+-- -------------------------------
+CREATE TABLE usuarios_unidades_permissoes (
+    usuario_id INT,
+    unidade_id INT,
+    permissao_id INT,
+    data_criacao DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (usuario_id, unidade_id, permissao_id),
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(usuario_id),
+    FOREIGN KEY (unidade_id) REFERENCES unidades(unidade_id),
+    FOREIGN KEY (permissao_id) REFERENCES permissoes(permissao_id)
+);
+
+-- -------------------------------
 -- TABELA: licitacoes
 -- -------------------------------
 CREATE TABLE licitacoes (
