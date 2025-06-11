@@ -1070,6 +1070,86 @@
         }
       },
       "response": []
+    },
+    {
+      "name": "List Permissoes",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/permissoes",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "permissoes"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Permissao",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/permissoes/1",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "permissoes", "1"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Permissao",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/permissoes/1",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "permissoes", "1"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nome\": \"EDITADA\"\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Permissao",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/permissoes/1",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "permissoes", "1"]
+        }
+      },
+      "response": []
     }
   ]
 }
