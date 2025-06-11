@@ -5,6 +5,7 @@ dotenv.config();
 
 const Sequelize = require('sequelize');
 const sequelize = require('./src/config/database');
+require('./src/models');
 const unidadeRoutes = require('./src/routes/unidadeRoutes');
 const licitacaoRoutes = require('./src/routes/licitacaoRoutes');
 const compradoresRoutes = require('./src/routes/compradoresRoutes');
@@ -14,6 +15,7 @@ const feriadosRoutes = require('./src/routes/feriadosRoutes');
 const usuarioRoutes = require('./src/routes/usuariosRoutes');
 const recuperacaoRoutes = require('./src/routes/recuperacaoRoutes');
 const rolesRoutes = require('./src/routes/rolesRoutes');
+const usuarioRoleRoutes = require('./src/routes/usuarioRoleRoutes');
 const authenticateToken = require('./src/middleware/authMiddleware');
 
 const app = express();
@@ -24,6 +26,7 @@ app.use('/api/register', registerRoutes);
 app.use(authenticateToken);
 
 app.use('/api/usuarios', usuarioRoutes);
+app.use('/api/usuarios', usuarioRoleRoutes);
 app.use('/api/roles', rolesRoutes);
 
 app.use('/api/unidade', unidadeRoutes);
