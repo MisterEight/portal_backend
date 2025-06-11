@@ -6,7 +6,7 @@ const Comprador = require('./Comprador');
 const Unidade = require('./Unidade');
 
 const UsuarioRole = sequelize.define('UsuarioRole', {
-  id: {
+  usuarios_roles_id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true
