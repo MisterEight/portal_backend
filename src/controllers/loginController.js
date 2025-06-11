@@ -26,12 +26,16 @@ exports.login = async (req, res) => {
       return res.status(401).json({ message: 'Usuário ou senha inválidos' });
     }
 
-    // Busca os cargos associados ao usuário
+    // Busca os cargos associados ao usuário, incluindo escopo
     const userRoles = await UsuarioRole.findAll({
       where: { usuario_id: usuario.usuario_id },
       include: [{ model: Role, attributes: ['nome'] }]
     });
-    const roles = userRoles.map(ur => ur.Role.nome);
+    const roles = userRoles.map(ur => ({
+      nome: ur.Role.nome,
+      comprador_id: ur.comprador_id,
+      unidade_id: ur.unidade_id
+    }));
 
     const token = jwt.sign(
       { id: usuario.usuario_id, login: usuario.login, roles },

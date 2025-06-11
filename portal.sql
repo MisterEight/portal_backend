@@ -86,9 +86,13 @@ CREATE TABLE roles_permissoes (
 CREATE TABLE usuarios_roles (
     usuario_id INT,
     role_id INT,
-    PRIMARY KEY (usuario_id, role_id),
+    comprador_id INT DEFAULT NULL,
+    unidade_id INT DEFAULT NULL,
+    PRIMARY KEY (usuario_id, role_id, comprador_id, unidade_id),
     FOREIGN KEY (usuario_id) REFERENCES usuarios(usuario_id),
-    FOREIGN KEY (role_id) REFERENCES roles(role_id)
+    FOREIGN KEY (role_id) REFERENCES roles(role_id),
+    FOREIGN KEY (comprador_id) REFERENCES compradores(comprador_id),
+    FOREIGN KEY (unidade_id) REFERENCES unidades(unidade_id)
 );
 
 
@@ -178,6 +182,6 @@ VALUES ('Administrador', 'admin', 'admin@example.com', '00000000000',
 '$2a$10$7EqJtq98hPqEX7fNZaFWoOaWgWo9r2ZSG6rPJty2rc3hSx0bCXeFa');
 
 -- Vincula o usuário administrador ao cargo ADMIN
-INSERT INTO usuarios_roles (usuario_id, role_id)
-  SELECT u.usuario_id, r.role_id FROM usuarios u, roles r
+INSERT INTO usuarios_roles (usuario_id, role_id, comprador_id, unidade_id)
+  SELECT u.usuario_id, r.role_id, NULL, NULL FROM usuarios u, roles r
   WHERE u.login='admin' AND r.nome='ADMIN';
