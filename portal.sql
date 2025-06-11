@@ -51,28 +51,51 @@ CREATE TABLE unidades (
     FOREIGN KEY (comprador_id) REFERENCES compradores(comprador_id)
 );
 
--- -------------------------------
 -- TABELA: permissoes
 -- -------------------------------
 CREATE TABLE permissoes (
     permissao_id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100) NOT NULL,
+    nome VARCHAR(100) NOT NULL UNIQUE,
+    descricao TEXT
+);
+
+
+-- -------------------------------
+-- TABELA: roles
+-- -------------------------------
+CREATE TABLE roles (
+    role_id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL UNIQUE,
     descricao TEXT
 );
 
 -- -------------------------------
--- TABELA: usuarios_unidades_permissoes
+-- TABELA: roles_permissoes
 -- -------------------------------
-CREATE TABLE usuarios_unidades_permissoes (
-    usuario_id INT,
-    unidade_id INT,
+CREATE TABLE roles_permissoes (
+    role_id INT,
     permissao_id INT,
-    data_criacao DATETIME DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (usuario_id, unidade_id, permissao_id),
-    FOREIGN KEY (usuario_id) REFERENCES usuarios(usuario_id),
-    FOREIGN KEY (unidade_id) REFERENCES unidades(unidade_id),
+    PRIMARY KEY (role_id, permissao_id),
+    FOREIGN KEY (role_id) REFERENCES roles(role_id),
     FOREIGN KEY (permissao_id) REFERENCES permissoes(permissao_id)
 );
+
+-- -------------------------------
+-- TABELA: usuarios_roles
+-- -------------------------------
+CREATE TABLE usuarios_roles (
+    usuarios_roles_id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT,
+    role_id INT,
+    comprador_id INT DEFAULT NULL,
+    unidade_id INT DEFAULT NULL,
+    UNIQUE KEY uq_usuario_role_escopo (usuario_id, role_id, comprador_id, unidade_id),
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(usuario_id),
+    FOREIGN KEY (role_id) REFERENCES roles(role_id),
+    FOREIGN KEY (comprador_id) REFERENCES compradores(comprador_id),
+    FOREIGN KEY (unidade_id) REFERENCES unidades(unidade_id)
+);
+
 
 -- -------------------------------
 -- TABELA: licitacoes
@@ -136,3 +159,47 @@ CREATE TABLE documentos (
     FOREIGN KEY (grupo_id) REFERENCES grupos_documentos(grupo_id),
     FOREIGN KEY (categoria_id) REFERENCES categorias_documentos(categoria_id)
 );
+-- -----------------------------------------------------
+-- SEED DATA PARA RBAC
+-- -----------------------------------------------------
+-- Permissão administrativa inicial
+INSERT INTO permissoes (nome, descricao) VALUES ('ADMIN', 'Acesso total ao sistema');
+
+-- Cargos básicos
+INSERT INTO roles (nome, descricao) VALUES
+  ('ADMIN', 'Usuário administrador do portal'),
+  ('COMPRADOR', 'Comprador'),
+  ('UNIDADE', 'Unidade'),
+  ('PREGOEIRO', 'Usuário pregoeiro');
+
+-- Associa o cargo ADMIN à permissão ADMIN
+INSERT INTO roles_permissoes (role_id, permissao_id)
+  SELECT r.role_id, p.permissao_id FROM roles r, permissoes p
+  WHERE r.nome='ADMIN' AND p.nome='ADMIN';
+
+-- Primeiro usuário administrador
+INSERT INTO usuarios (nome, login, email, cpf, senha_hash)
+VALUES ('Administrador', 'admin', 'admin@example.com', '00000000000',
+'$2a$12$0.M8noZO8FDNTCv9QRbMjeFeEWpFr1MKCuVLn7aXKlKQ39GRDivve');
+
+-- Vincula o usuário administrador ao cargo ADMIN
+INSERT INTO usuarios_roles (usuario_id, role_id, comprador_id, unidade_id)
+  SELECT u.usuario_id, r.role_id, NULL, NULL FROM usuarios u, roles r
+  WHERE u.login='admin' AND r.nome='ADMIN';
+
+-- Dados de exemplo para testes
+INSERT INTO compradores (nome) VALUES ('GDF');
+
+INSERT INTO unidades (comprador_id, nome, sigla) VALUES
+  (1, 'Saude', 'SAU'),
+  (1, 'Educacao', 'EDU');
+
+INSERT INTO usuarios (nome, login, email, cpf, senha_hash) VALUES
+  ('Comprador User', 'comprador', 'comprador@example.com', '11111111111', '$2a$12$0.M8noZO8FDNTCv9QRbMjeFeEWpFr1MKCuVLn7aXKlKQ39GRDivve'),
+  ('Unidade User', 'unidade', 'unidade@example.com', '22222222222', '$2a$12$0.M8noZO8FDNTCv9QRbMjeFeEWpFr1MKCuVLn7aXKlKQ39GRDivve'),
+  ('Pregoeiro User', 'pregoeiro', 'pregoeiro@example.com', '33333333333', '$2a$12$0.M8noZO8FDNTCv9QRbMjeFeEWpFr1MKCuVLn7aXKlKQ39GRDivve');
+
+INSERT INTO usuarios_roles (usuario_id, role_id, comprador_id, unidade_id) VALUES
+  ((SELECT usuario_id FROM usuarios WHERE login='comprador'), (SELECT role_id FROM roles WHERE nome='COMPRADOR'), 1, NULL),
+  ((SELECT usuario_id FROM usuarios WHERE login='unidade'), (SELECT role_id FROM roles WHERE nome='UNIDADE'), 1, 1),
+  ((SELECT usuario_id FROM usuarios WHERE login='pregoeiro'), (SELECT role_id FROM roles WHERE nome='PREGOEIRO'), 1, 1);

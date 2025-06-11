@@ -10,7 +10,7 @@ exports.getById = async (req, res) => {
       return res.status(404).json({ error: 'Unidade não encontrado' });
     }
 
-    res.status(200).json();
+    res.status(200).json(unidade);
   } catch (error) {
     console.error('Erro ao buscar unidade:', error);
     res.status(500).json({ error: 'Erro ao buscar unidade' });
