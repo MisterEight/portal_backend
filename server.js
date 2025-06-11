@@ -16,6 +16,7 @@ const usuarioRoutes = require('./src/routes/usuariosRoutes');
 const recuperacaoRoutes = require('./src/routes/recuperacaoRoutes');
 const rolesRoutes = require('./src/routes/rolesRoutes');
 const usuarioRoleRoutes = require('./src/routes/usuarioRoleRoutes');
+const permissoesRoutes = require('./src/routes/permissoesRoutes');
 const authenticateToken = require('./src/middleware/authMiddleware');
 
 const app = express();
@@ -28,6 +29,7 @@ app.use(authenticateToken);
 app.use('/api/usuarios', usuarioRoutes);
 app.use('/api/usuarios', usuarioRoleRoutes);
 app.use('/api/roles', rolesRoutes);
+app.use('/api/permissoes', permissoesRoutes);
 
 app.use('/api/unidade', unidadeRoutes);
 app.use('/api/licitacao', licitacaoRoutes);

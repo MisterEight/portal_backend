@@ -6,9 +6,13 @@ const Comprador = require('./Comprador');
 const Unidade = require('./Unidade');
 
 const UsuarioRole = sequelize.define('UsuarioRole', {
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true
+  },
   usuario_id: {
     type: DataTypes.INTEGER,
-    primaryKey: true,
     references: {
       model: Usuario,
       key: 'usuario_id'
@@ -16,7 +20,6 @@ const UsuarioRole = sequelize.define('UsuarioRole', {
   },
   role_id: {
     type: DataTypes.INTEGER,
-    primaryKey: true,
     references: {
       model: Role,
       key: 'role_id'
@@ -40,12 +43,14 @@ const UsuarioRole = sequelize.define('UsuarioRole', {
   }
 }, {
   tableName: 'usuarios_roles',
-  timestamps: false
+  timestamps: false,
+  indexes: [
+    {
+      unique: true,
+      fields: ['usuario_id', 'role_id', 'comprador_id', 'unidade_id']
+    }
+  ]
 });
 
-UsuarioRole.belongsTo(Usuario, { foreignKey: 'usuario_id' });
-UsuarioRole.belongsTo(Role, { foreignKey: 'role_id' });
-UsuarioRole.belongsTo(Comprador, { foreignKey: 'comprador_id' });
-UsuarioRole.belongsTo(Unidade, { foreignKey: 'unidade_id' });
 
 module.exports = UsuarioRole;

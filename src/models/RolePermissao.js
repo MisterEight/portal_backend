@@ -1,14 +1,12 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
-const Role = require('./Role');
-const Permissao = require('./Permissao');
 
 const RolePermissao = sequelize.define('RolePermissao', {
   role_id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     references: {
-      model: Role,
+      model: 'roles',
       key: 'role_id'
     }
   },
@@ -16,7 +14,7 @@ const RolePermissao = sequelize.define('RolePermissao', {
     type: DataTypes.INTEGER,
     primaryKey: true,
     references: {
-      model: Permissao,
+      model: 'permissoes',
       key: 'permissao_id'
     }
   }
@@ -25,7 +23,6 @@ const RolePermissao = sequelize.define('RolePermissao', {
   timestamps: false
 });
 
-RolePermissao.belongsTo(Role, { foreignKey: 'role_id' });
-RolePermissao.belongsTo(Permissao, { foreignKey: 'permissao_id' });
+
 
 module.exports = RolePermissao;

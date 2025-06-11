@@ -1,6 +1,10 @@
 module.exports = (requiredRole) => {
   return (req, res, next) => {
     const roles = (req.user && req.user.roles) || [];
+    const isSuperAdmin = roles.some(r => r.nome === 'ADMIN' && !r.comprador_id && !r.unidade_id);
+    if (isSuperAdmin) {
+      return next();
+    }
     const recursoComprador = req.body.comprador_id || req.params.comprador_id;
     const recursoUnidade = req.body.unidade_id || req.params.unidade_id || req.params.id;
 
