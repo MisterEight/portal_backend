@@ -1173,6 +1173,93 @@
         }
       },
       "response": []
+    },
+    {
+      "name": "Upload Documento",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "titulo",
+              "value": "Exemplo",
+              "type": "text"
+            },
+            {
+              "key": "arquivo",
+              "src": "",
+              "type": "file"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/documentos",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "documentos"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "List Documentos",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/documentos",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "documentos"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Documento",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/documentos/1",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "documentos", "1"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Documento",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/documentos/1",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "documentos", "1"]
+        }
+      },
+      "response": []
     }
   ]
 }
