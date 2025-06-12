@@ -18,10 +18,12 @@ const rolesRoutes = require('./src/routes/rolesRoutes');
 const usuarioRoleRoutes = require('./src/routes/usuarioRoleRoutes');
 const permissoesRoutes = require('./src/routes/permissoesRoutes');
 const dashboardRoutes = require('./src/routes/dashboardRoutes');
+const documentosRoutes = require('./src/routes/documentosRoutes');
 const authenticateToken = require('./src/middleware/authMiddleware');
 
 const app = express();
 app.use(express.json());
+app.use('/arquivos', express.static('uploads'));
 app.use('/api/login', loginRoutes);
 app.use('/api/register', registerRoutes);
 
@@ -38,6 +40,7 @@ app.use('/api/licitacao', licitacaoRoutes);
 app.use('/api/compradores', compradoresRoutes);
 app.use('/api/feriadosRoutes', feriadosRoutes);
 app.use('/api', recuperacaoRoutes);
+app.use('/api/documentos', documentosRoutes);
 
 
 sequelize.authenticate().then(function(){
