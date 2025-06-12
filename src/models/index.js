@@ -10,6 +10,7 @@ db.UsuarioRole = require('./UsuarioRole');
 db.Usuario = require('./Usuarios');
 db.Comprador = require('./Comprador');
 db.Unidade = require('./Unidade');
+db.Documento = require('./Documento');
 
 // Associations
 // roles <-> permissoes
