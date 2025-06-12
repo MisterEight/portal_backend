@@ -1,4 +1,6 @@
 const Licitacao = require('../models/Licitacao');
+const sequelize = require('../config/database');
+const { fn, col } = require('sequelize');
 
 // Listar todas as licitações
 exports.getAll = async (req, res) => {
@@ -120,4 +122,36 @@ exports.delete = async (req, res) => {
     res.status(500).json({ error: 'Erro ao deletar licitação' });
   }
 };
+
+// Relatório de licitações por período
+exports.report = async (req, res) => {
+  try {
+    const period = req.query.period === 'ano' ? 'ano' : 'mes';
+    let attributes;
+
+    if (period === 'ano') {
+      attributes = [
+        [fn('YEAR', col('data_publicacao')), 'periodo'],
+        [fn('COUNT', col('licitacao_id')), 'total']
+      ];
+    } else {
+      attributes = [
+        [fn('DATE_FORMAT', col('data_publicacao'), '%Y-%m'), 'periodo'],
+        [fn('COUNT', col('licitacao_id')), 'total']
+      ];
+    }
+
+    const dados = await Licitacao.findAll({
+      attributes,
+      group: ['periodo'],
+      order: [[col('periodo'), 'ASC']]
+    });
+
+    res.status(200).json(dados);
+  } catch (error) {
+    console.error('Erro ao gerar relatório de licitações:', error);
+    res.status(500).json({ error: 'Erro ao gerar relatório de licitações' });
+  }
+};
+
 
