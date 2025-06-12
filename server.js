@@ -23,6 +23,7 @@ const authenticateToken = require('./src/middleware/authMiddleware');
 
 const app = express();
 app.use(express.json());
+app.use(express.static('public'));
 app.use('/arquivos', express.static('uploads'));
 app.use('/api/login', loginRoutes);
 app.use('/api/register', registerRoutes);
