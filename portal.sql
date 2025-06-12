@@ -230,3 +230,30 @@ INSERT INTO licitacoes (comprador_id, pregoeiro_id, ordenador_id, titulo, nature
   (1, (SELECT usuario_id FROM usuarios WHERE login='pregoeiro'), (SELECT usuario_id FROM usuarios WHERE login='comprador'), 'Licitacao 10/2024', 'Serviço', 'PUBLICADA', '2024-10-05', TRUE),
   (1, (SELECT usuario_id FROM usuarios WHERE login='pregoeiro'), (SELECT usuario_id FROM usuarios WHERE login='comprador'), 'Licitacao 11/2024', 'Produto', 'PUBLICADA', '2024-11-05', TRUE),
   (1, (SELECT usuario_id FROM usuarios WHERE login='pregoeiro'), (SELECT usuario_id FROM usuarios WHERE login='comprador'), 'Licitacao 12/2024', 'Serviço', 'PUBLICADA', '2024-12-05', TRUE);
+
+-- Mais licitações para aumentar a variedade de meses
+INSERT INTO licitacoes (comprador_id, pregoeiro_id, ordenador_id, titulo, natureza, status, data_publicacao, ativa) VALUES
+  (1, (SELECT usuario_id FROM usuarios WHERE login='pregoeiro'), (SELECT usuario_id FROM usuarios WHERE login='comprador'), 'Licitacao Extra 01/2023', 'Produto', 'CANCELADA', '2023-01-15', TRUE),
+  (1, (SELECT usuario_id FROM usuarios WHERE login='pregoeiro'), (SELECT usuario_id FROM usuarios WHERE login='comprador'), 'Licitacao Extra 02/2023', 'Serviço', 'RASCUNHO',  '2023-02-12', TRUE),
+  (1, (SELECT usuario_id FROM usuarios WHERE login='pregoeiro'), (SELECT usuario_id FROM usuarios WHERE login='comprador'), 'Licitacao Extra 03/2023', 'Produto', 'PUBLICADA', '2023-03-18', TRUE),
+  (1, (SELECT usuario_id FROM usuarios WHERE login='pregoeiro'), (SELECT usuario_id FROM usuarios WHERE login='comprador'), 'Licitacao Extra 04/2023', 'Serviço', 'CANCELADA', '2023-04-20', TRUE),
+  (1, (SELECT usuario_id FROM usuarios WHERE login='pregoeiro'), (SELECT usuario_id FROM usuarios WHERE login='comprador'), 'Licitacao Extra 05/2023', 'Produto', 'RASCUNHO',  '2023-05-16', TRUE),
+  (1, (SELECT usuario_id FROM usuarios WHERE login='pregoeiro'), (SELECT usuario_id FROM usuarios WHERE login='comprador'), 'Licitacao Extra 06/2023', 'Serviço', 'PUBLICADA', '2023-06-22', TRUE),
+  (1, (SELECT usuario_id FROM usuarios WHERE login='pregoeiro'), (SELECT usuario_id FROM usuarios WHERE login='comprador'), 'Licitacao Extra 07/2023', 'Produto', 'CANCELADA', '2023-07-14', TRUE),
+  (1, (SELECT usuario_id FROM usuarios WHERE login='pregoeiro'), (SELECT usuario_id FROM usuarios WHERE login='comprador'), 'Licitacao Extra 08/2023', 'Serviço', 'RASCUNHO',  '2023-08-19', TRUE),
+  (1, (SELECT usuario_id FROM usuarios WHERE login='pregoeiro'), (SELECT usuario_id FROM usuarios WHERE login='comprador'), 'Licitacao Extra 09/2023', 'Produto', 'PUBLICADA', '2023-09-25', TRUE),
+  (1, (SELECT usuario_id FROM usuarios WHERE login='pregoeiro'), (SELECT usuario_id FROM usuarios WHERE login='comprador'), 'Licitacao Extra 10/2023', 'Serviço', 'CANCELADA', '2023-10-08', TRUE),
+  (1, (SELECT usuario_id FROM usuarios WHERE login='pregoeiro'), (SELECT usuario_id FROM usuarios WHERE login='comprador'), 'Licitacao Extra 11/2023', 'Produto', 'RASCUNHO',  '2023-11-11', TRUE),
+  (1, (SELECT usuario_id FROM usuarios WHERE login='pregoeiro'), (SELECT usuario_id FROM usuarios WHERE login='comprador'), 'Licitacao Extra 12/2023', 'Serviço', 'PUBLICADA', '2023-12-18', TRUE),
+  (1, (SELECT usuario_id FROM usuarios WHERE login='pregoeiro'), (SELECT usuario_id FROM usuarios WHERE login='comprador'), 'Licitacao Extra 01/2024', 'Produto', 'CANCELADA', '2024-01-15', TRUE),
+  (1, (SELECT usuario_id FROM usuarios WHERE login='pregoeiro'), (SELECT usuario_id FROM usuarios WHERE login='comprador'), 'Licitacao Extra 02/2024', 'Serviço', 'RASCUNHO',  '2024-02-12', TRUE),
+  (1, (SELECT usuario_id FROM usuarios WHERE login='pregoeiro'), (SELECT usuario_id FROM usuarios WHERE login='comprador'), 'Licitacao Extra 03/2024', 'Produto', 'PUBLICADA', '2024-03-18', TRUE),
+  (1, (SELECT usuario_id FROM usuarios WHERE login='pregoeiro'), (SELECT usuario_id FROM usuarios WHERE login='comprador'), 'Licitacao Extra 04/2024', 'Serviço', 'CANCELADA', '2024-04-20', TRUE),
+  (1, (SELECT usuario_id FROM usuarios WHERE login='pregoeiro'), (SELECT usuario_id FROM usuarios WHERE login='comprador'), 'Licitacao Extra 05/2024', 'Produto', 'RASCUNHO',  '2024-05-16', TRUE),
+  (1, (SELECT usuario_id FROM usuarios WHERE login='pregoeiro'), (SELECT usuario_id FROM usuarios WHERE login='comprador'), 'Licitacao Extra 06/2024', 'Serviço', 'PUBLICADA', '2024-06-22', TRUE),
+  (1, (SELECT usuario_id FROM usuarios WHERE login='pregoeiro'), (SELECT usuario_id FROM usuarios WHERE login='comprador'), 'Licitacao Extra 07/2024', 'Produto', 'CANCELADA', '2024-07-14', TRUE),
+  (1, (SELECT usuario_id FROM usuarios WHERE login='pregoeiro'), (SELECT usuario_id FROM usuarios WHERE login='comprador'), 'Licitacao Extra 08/2024', 'Serviço', 'RASCUNHO',  '2024-08-19', TRUE),
+  (1, (SELECT usuario_id FROM usuarios WHERE login='pregoeiro'), (SELECT usuario_id FROM usuarios WHERE login='comprador'), 'Licitacao Extra 09/2024', 'Produto', 'PUBLICADA', '2024-09-25', TRUE),
+  (1, (SELECT usuario_id FROM usuarios WHERE login='pregoeiro'), (SELECT usuario_id FROM usuarios WHERE login='comprador'), 'Licitacao Extra 10/2024', 'Serviço', 'CANCELADA', '2024-10-08', TRUE),
+  (1, (SELECT usuario_id FROM usuarios WHERE login='pregoeiro'), (SELECT usuario_id FROM usuarios WHERE login='comprador'), 'Licitacao Extra 11/2024', 'Produto', 'RASCUNHO',  '2024-11-11', TRUE),
+  (1, (SELECT usuario_id FROM usuarios WHERE login='pregoeiro'), (SELECT usuario_id FROM usuarios WHERE login='comprador'), 'Licitacao Extra 12/2024', 'Serviço', 'PUBLICADA', '2024-12-18', TRUE);
