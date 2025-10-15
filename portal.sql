@@ -193,6 +193,9 @@ INSERT INTO compradores (nome) VALUES ('GDF');
 INSERT INTO unidades (comprador_id, nome, sigla) VALUES
   (1, 'Saude', 'SAU'),
   (1, 'Educacao', 'EDU');
+  
+  INSERT INTO roles (nome, descricao) VALUES
+   ('ADMIN', 'Administrador do sistema');
 
 INSERT INTO usuarios (nome, login, email, cpf, senha_hash) VALUES
   ('Comprador User', 'comprador', 'comprador@example.com', '11111111111', '$2a$12$0.M8noZO8FDNTCv9QRbMjeFeEWpFr1MKCuVLn7aXKlKQ39GRDivve'),

@@ -26,7 +26,6 @@ exports.login = async (req, res) => {
       return res.status(401).json({ message: 'Usuário ou senha inválidos' });
     }
 
-    // Busca os cargos associados ao usuário, incluindo escopo
     const userRoles = await UsuarioRole.findAll({
       where: { usuario_id: usuario.usuario_id },
       include: [{ model: Role, attributes: ['nome'] }]
